@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page accueil client - PROACT'IF</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
+            div.haut{background-color: blue; margin : 20px; padding : 20 px;}
+            h1{color: white; text-align: center;}
+            div.connexion{background-color: white; margin : 0%; padding : 20px; border-radius: 10px; width:auto; height:auto;}
+            div p{color: blue; text-align: center;}
+            input{border-radius: 10px;}
+            div.floatGauche{float: left; width:auto; height:auto; }
+            div.floatDroite{float: right; width:auto; height:auto;}
+            div.message-erreur{color: black;text-align: center;}
+            a{color: white; float: right; clear: both;}
+        </style>
+    </head>
+    <body>
+        <div class="haut">
+            <a href="index.html">Déconnexion</a>
+            <h1>Bonjour ${sessionScope.adresseUtilisateur}</h1>
+            <button id="intervention-client">Demander une nouvelle intervention</button><br/>
+        </div>
+        
+        <script>
+
+            function demandeIntervention() {
+               
+                window.location = "pageDemandeInterventionClient.html";
+                    
+            }
+            
+           
+
+            $(document).ready(function () {
+                
+                $('#intervention-client').on('click', function () {
+                    
+                    demandeIntervention();
+                });
+                
+               
+                
+            });
+            
+        </script>
+    </body>
+</html>

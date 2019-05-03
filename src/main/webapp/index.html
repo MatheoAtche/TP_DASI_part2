@@ -1,57 +1,98 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Exemple de page de login</title>
+        <title>Page de connexion - PROACT'IF</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
+            body{background-color: blue;}
+            h1{color: white; text-align: center;}
+            div.connexion{background-color: white; margin : 0%; padding : 20px; border-radius: 10px; width:auto; height:auto;}
+            div p{color: blue; text-align: center;}
+            input{border-radius: 10px;}
+            div.floatGauche{float: left;}
+            div.floatDroite{float: right;}
+            div.message-erreur{color: black;text-align: center;}
+        </style>
     </head>
     <body>
         <h1>PROACT'IF</h1>
+        <div class="connexion floatGauche">
+            <p> Connexion </p>
+            <input type="text" id="champ-login-client" name="login-client" /><br>
+            <input type="password" id="champ-password-client" name="password-client" /><br>
+            <div id="message-client" class="message-erreur"></div>
+            <button id="bouton-connexion-client">Valider</button><br>
+            <a href="pageInscriptionClient.html"> Pas encore inscrit ? Cliquez ici </a>
+        </div>
         
-        Identifiant client : <input type="text" id="champ-login" name="login" placeholder="votre identifiant" /><br>
-        Mot de passe client : <input type="password" id="champ-password" name="password" /><br>
-        <button id="bouton-connexion">Se connecter</button>
-        
-        <div id="message"></div>
+        <div class="connexion floatDroite" id="employe">
+            <p> Connexion (employés) </p>
+            <input type="text" id="champ-login-employe" name="login-employe" /><br>
+            <input type="password" id="champ-password-employe" name="password-employe" /><br>
+            <div id="message-employe" class="message-erreur"></div>
+            <button id="bouton-connexion-employe">Valider</button><br>
+        </div>
         
         <script>
 
-            function connexion() {
-                var champLogin = $('#champ-login').val();
-                var champPassword = $('#champ-password').val();
-
-                $('#message').html('Connexion en cours...');
+            function connexionClient() {
+                var champLogin = $('#champ-login-client').val();
+                var champPassword = $('#champ-password-client').val();
 
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'connecter',
+                        todo: 'connecterClient',
                         login: champLogin,
                         password: champPassword
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    // ici votre code...
-                    // 
-                    // si connexion ok, aller sur la page suivante :
-                    //var client = data.client;
                     
+                    if(data.nomClient=="Aucun") {
+                        $('#message-client').html('Connexion échouée');
+                    } else {
+                        window.location = "pageAccueilClient.html";
+                    }
+                    
+                });
+            }
+            
+            function connexionEmploye() {
+                var champLogin = $('#champ-login-employe').val();
+                var champPassword = $('#champ-password-employe').val();
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'connecterEmploye',
+                        login: champLogin,
+                        password: champPassword
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+            
                     alert(data.nomClient);
-                    //window.location = "maPageSuivante.html";
-                    // si connexion pas ok afficher un texte dans la div message :
-                    $('#message').html('Echec de la connexion');
+                    $('#message-employe').html('Connexion échouée');
                 });
             }
 
             $(document).ready(function () {
-                // ajout d'un "handler" sur le clic du bouton de connexion
-                $('#bouton-connexion').on('click', function () {
-                    // affichage pour debugage dans la console javascript du navigateur
-                    console.log('Click sur le bouton "Se Connecter"');
-                    // appel de la fonction connexion
-                    connexion();
+                
+                $('#bouton-connexion-client').on('click', function () {
+                    
+                    connexionClient();
                 });
+                
+                $('#bouton-connexion-employe').on('click', function () {
+                    
+                    connexionEmploye();
+                });
+                
             });
             
         </script>

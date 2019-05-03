@@ -15,20 +15,20 @@ import metier.service.Service;
  *
  * @author slabouchei
  */
-public class ConnecterAction extends Action {
+public class ConnecterClientAction extends Action {
 
     @Override
     public boolean executer(HttpServletRequest request) {
         Service service = new Service();
-        HttpSession session = request.getSession(true);
+       
         Client client = null;
         client = service.AuthentificationClient(request.getParameter("login"), request.getParameter("password"));
         if(client != null)
         {
-            session.setAttribute("idPerssone",client.getId());
+            request.setAttribute("idClient",client.getId());
             request.setAttribute("nomClient",client.getNom());
         } else {
-            request.setAttribute("nomClient","Aucun");
+            request.setAttribute("idClient",null);
         }
         return true;
     }

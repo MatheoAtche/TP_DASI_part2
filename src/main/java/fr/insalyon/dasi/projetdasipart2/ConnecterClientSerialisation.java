@@ -17,12 +17,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author slabouchei
  */
-public class ConnecterSerialisation extends Serialisation {
+public class ConnecterClientSerialisation extends Serialisation {
     
     @Override
     public void serialiser (HttpServletRequest request,HttpServletResponse response) throws IOException{
         JsonObject jsonContainer = new JsonObject();
+        
         jsonContainer.addProperty("nomClient",(String)request.getAttribute("nomClient"));
+        
         PrintWriter out = this.getWriterWithJsonHeader(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(jsonContainer,out);
