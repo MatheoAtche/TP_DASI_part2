@@ -10,10 +10,8 @@ package fr.insalyon.dasi.projetdasipart2;
  * @author matheo
  */
 
-import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import metier.modele.Client;
+import metier.modele.Employe;
 import metier.service.Service;
 
 public class ConnecterEmployeAction extends Action {
