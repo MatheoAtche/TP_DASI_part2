@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Connexion Employé</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
+            body{background-color: blue;}
+            h1{color: white; text-align: center;}
+            div.connexion{background-color: white; margin : 0%; padding : 20px; border-radius: 10px; width:auto; height:auto;}
+            div p{color: blue; text-align: center;}
+            input{border-radius: 10px;}
+            div.message-erreur{color: black;text-align: center;}
+        </style>
+    </head>
+    <body>
+        <div id="connexion">
+            <p> Connexion (employés) </p>
+            <input type="text" id="champ-login" name="login-employe" /><br>
+            <input type="password" id="champ-password" name="password-employe" /><br>
+            <div id="message-employe" class="message-erreur"></div>
+            <button id="bouton-connexion">Valider</button><br>
+        </div>
+    
+        <script>
+            function connexionEmploye() {
+                    var champLogin = $('#champ-login').val();
+                    var champPassword = $('#champ-password').val();
+
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'connecterEmploye',
+                            login: champLogin,
+                            password: champPassword
+                        },
+                        dataType: 'json'
+                    }).done(function (data) {
+
+                        alert(data.nomEmploye);
+                        $('#message-employe').html('Connexion échouée');
+                    });
+                }
+
+                $(document).ready(function () {
+
+                    $('#bouton-connexion').on('click', function () {
+
+                        connexionEmploye();
+                    });
+
+                });
+        </script>
+        
+    </body>
+
+</html>
