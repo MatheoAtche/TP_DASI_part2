@@ -19,5 +19,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ConnecterEmployeSerialisation extends Serialisation {
+    @Override
+    public void serialiser (HttpServletRequest request,HttpServletResponse response) throws IOException{
+        
+        JsonObject jsonContainer = new JsonObject();
+        Employe employe = (Employe)request.getAttribute("employeConnecte");
+        if(employe != null) {
+            jsonContainer.addProperty("idEmploye",String.valueOf(employe.getId()));
+            jsonContainer.addProperty("nomEmploye",employe.getNom());
+            jsonContainer.addProperty("prenomEmploye",employe.getPrenom());
+            jsonContainer.addProperty("courrielEmployet",employe.getEmail());
+        } else {
+            jsonContainer.addProperty("idEmploye","null");
+            jsonContainer.addProperty("nomEmploye","null");
+            jsonContainer.addProperty("prenomEmploye","null");
+            jsonContainer.addProperty("courrielEmploye","null");
+        }
+        
+        PrintWriter out = this.getWriterWithJsonHeader(response);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson.toJson(jsonContainer,out);
+    }
     
 }

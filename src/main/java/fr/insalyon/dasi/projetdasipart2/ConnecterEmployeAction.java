@@ -18,4 +18,20 @@ import metier.service.Service;
 
 public class ConnecterEmployeAction extends Action {
     
+    @Override
+    public boolean executer(HttpServletRequest request) {
+        Service service = new Service();
+       
+        Employe employe = null;
+        employe = service.AuthentificationEmploye(request.getParameter("login"), request.getParameter("password"));
+        if(employe != null)
+        {
+            request.setAttribute("employeConnecte",employe);
+            request.getSession().setAttribute("employe", employe);
+        } else {
+            request.setAttribute("employeConnecte",null);
+            request.getSession().setAttribute("employe", null);
+        }
+        return true;
+    }
 }
