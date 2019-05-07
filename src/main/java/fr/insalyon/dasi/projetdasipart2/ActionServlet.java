@@ -50,7 +50,10 @@ public class ActionServlet extends HttpServlet {
                 serialisation.serialiser(request,response);
                 break;
             case "connecterEmploye" :
-                
+                action = new ConnecterEmployeAction();
+                serialisation = new ConnecterEmployeSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request, response);
                 break;
             default :
                 PrintWriter out2 = response.getWriter();
