@@ -46,8 +46,11 @@ and open the template in the editor.
                         dataType: 'json'
                     }).done(function (data) {
 
-                        alert(data.nomEmploye);
-                        $('#message-employe').html('Connexion échouée');
+                        if(data.idEmploye=="null") {
+                            $('#message-employe').html('Connexion échouée');
+                        } else {
+                            window.location = "pageAccueilEmploye.html";
+                        }
                     });
                 }
 
