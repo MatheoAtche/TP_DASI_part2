@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.modele.Client;
 
 /**
  *
@@ -21,9 +22,20 @@ public class ConnecterClientSerialisation extends Serialisation {
     
     @Override
     public void serialiser (HttpServletRequest request,HttpServletResponse response) throws IOException{
-        JsonObject jsonContainer = new JsonObject();
         
-        jsonContainer.addProperty("nomClient",(String)request.getAttribute("nomClient"));
+        JsonObject jsonContainer = new JsonObject();
+        Client client = (Client)request.getAttribute("clientConnecte");
+        if(client != null) {
+            jsonContainer.addProperty("idClient",String.valueOf(client.getId()));
+            jsonContainer.addProperty("nomClient",client.getNom());
+            jsonContainer.addProperty("prenomClient",client.getPrenom());
+            jsonContainer.addProperty("courrielClient",client.getEmail());
+        } else {
+            jsonContainer.addProperty("idClient","null");
+            jsonContainer.addProperty("nomClient","null");
+            jsonContainer.addProperty("prenomClient","null");
+            jsonContainer.addProperty("courrielClient","null");
+        }
         
         PrintWriter out = this.getWriterWithJsonHeader(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

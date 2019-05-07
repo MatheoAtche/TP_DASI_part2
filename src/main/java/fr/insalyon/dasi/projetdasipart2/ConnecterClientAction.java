@@ -25,10 +25,9 @@ public class ConnecterClientAction extends Action {
         client = service.AuthentificationClient(request.getParameter("login"), request.getParameter("password"));
         if(client != null)
         {
-            request.setAttribute("idClient",client.getId());
-            request.setAttribute("nomClient",client.getNom());
+            request.setAttribute("clientConnecte",client);
         } else {
-            request.setAttribute("idClient",null);
+            request.setAttribute("clientConnecte",null);
         }
         return true;
     }
