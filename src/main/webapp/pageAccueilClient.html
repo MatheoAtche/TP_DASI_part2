@@ -11,6 +11,9 @@
             p{text-align: center;}
             input{border-radius: 10px;}
             a{color: white; float: right; width:auto;}
+            table{border: 2px solid black; width: 100%;}
+            th{border: 2px solid black;}
+            td{border: 2px solid black;}
         </style>
     </head>
     <body>
@@ -21,7 +24,7 @@
         </div>
         <p><b>Historique des dernières interventions</b></p>
         <p>Cliquez sur une ligne pour afficher les détails de l'intervention</p>
-        <table id="table-intervention" border="1">
+        <table id="table-intervention">
             <tr>
                 <th>Date</th>
                 <th>Type</th>
@@ -43,9 +46,9 @@
                 }).done(function (data) {
                     
                     $('#message-client').html('Bonjour '+data.prenomClient);
-                    $.each(data.interventionsClient, function(i,intervention)) {
-                        $('#table-intervention').append('<tr><td>'+data.+'</td><td>Type</td><td>Description</td><td>Statut</td></tr>');
-                    }
+                    $.each(data.interventionsClient, function(i,intervention) {
+                        $('#table-intervention').append('<tr><td>'+intervention.dateDebut+'</td><td>'+intervention.type+'</td><td>'+intervention.description+'</td><td>'+intervention.description+'</td></tr>');
+                    });
                     
                    
                 });
