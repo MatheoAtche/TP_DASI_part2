@@ -23,7 +23,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ProactIF</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

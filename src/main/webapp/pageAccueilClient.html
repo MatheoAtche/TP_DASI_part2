@@ -8,13 +8,9 @@
             button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
             div.haut{background-color: blue; margin : 20px; padding : 20 px;}
             h1{color: white; text-align: center;}
-            div.connexion{background-color: white; margin : 0%; padding : 20px; border-radius: 10px; width:auto; height:auto;}
-            div p{color: blue; text-align: center;}
+            p{text-align: center;}
             input{border-radius: 10px;}
-            div.floatGauche{float: left; width:auto; height:auto; }
-            div.floatDroite{float: right; width:auto; height:auto;}
-            div.message-erreur{color: black;text-align: center;}
-            a{color: white; float: right; clear: both;}
+            a{color: white; float: right; width:auto;}
         </style>
     </head>
     <body>
@@ -23,7 +19,16 @@
             <h1 id="message-client"></h1>
             <button id="intervention-client">Demander une nouvelle intervention</button><br/>
         </div>
-        
+        <p><b>Historique des dernières interventions</b></p>
+        <p>Cliquez sur une ligne pour afficher les détails de l'intervention</p>
+        <table id="table-intervention" border="1">
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Statut</th>
+            </tr>
+        </table>
         <script>
 
             function chargerPageAccueilClient() {
@@ -37,10 +42,12 @@
                     dataType: 'json'
                 }).done(function (data) {
                     
-                    alert(data.prenomClient);
                     $('#message-client').html('Bonjour '+data.prenomClient);
+                    $.each(data.interventionsClient, function(i,intervention)) {
+                        $('#table-intervention').append('<tr><td>'+data.+'</td><td>Type</td><td>Description</td><td>Statut</td></tr>');
+                    }
                     
-                    
+                   
                 });
             }
 
