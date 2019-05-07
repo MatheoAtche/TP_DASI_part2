@@ -26,8 +26,10 @@ public class ConnecterClientAction extends Action {
         if(client != null)
         {
             request.setAttribute("clientConnecte",client);
+            request.getSession().setAttribute("client", client);
         } else {
             request.setAttribute("clientConnecte",null);
+            request.getSession().setAttribute("client", null);
         }
         return true;
     }
