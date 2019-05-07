@@ -46,6 +46,9 @@ public class ActionServlet extends HttpServlet {
                 action.executer(request);
                 serialisation.serialiser(request,response);
                 break;
+            case "connecterEmployer" :
+                
+                break;
             default :
                 PrintWriter out2 = response.getWriter();
                 out2.print("Default");
