@@ -52,6 +52,13 @@ public class ActionServlet extends HttpServlet {
             case "connecterEmploye" :
                 
                 break;
+                
+            case "chargerPageAccueilClient" :
+                action = new PageAccueilClientAction();
+                serialisation = new PageAccueilClientSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request,response);
+                break;
             default :
                 PrintWriter out2 = response.getWriter();
                 out2.print("Default");

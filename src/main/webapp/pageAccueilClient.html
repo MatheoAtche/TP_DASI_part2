@@ -20,22 +20,39 @@
     <body>
         <div class="haut">
             <a href="index.html">Déconnexion</a>
-            <h1>Bonjour ${sessionScope.adresseUtilisateur}</h1>
+            <h1 id="message-client"></h1>
             <button id="intervention-client">Demander une nouvelle intervention</button><br/>
         </div>
         
         <script>
 
-            function demandeIntervention() {
-               
-                window.location = "pageDemandeInterventionClient.html";
+            function chargerPageAccueilClient() {
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'chargerPageAccueilClient'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
                     
+                    alert(data.prenomClient);
+                    $('#message-client').html('Bonjour '+data.prenomClient);
+                    
+                    
+                });
+            }
+
+            function demandeIntervention() {
+                window.location = "pageDemandeInterventionClient.html";
             }
             
            
 
             $(document).ready(function () {
                 
+                chargerPageAccueilClient();
                 $('#intervention-client').on('click', function () {
                     
                     demandeIntervention();
