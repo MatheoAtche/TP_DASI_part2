@@ -9,28 +9,127 @@ and open the template in the editor.
         <title>Demande intervention - PROACT'IF</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+         <style>
+            body{background-color: blue;}
+            h1{color: white; text-align: center;}
+            a{color: white;}
+            div{float: left; width: 20%;}
+            img{width: 100px; height: 100px;}
+            #champs-livraison{visibility: hidden; }
+            #champs-incident{visibility: hidden;}
+            #champs-animal{visibility: hidden;}
+            #valider{visibility: hidden;}
+        </style>
     </head>
     <body>
         <a href="pageAccueilClient.html"> <-- </a>
         <h1> Demande d'intervention </h1>
         
-        <div id="livraison">
-            <a href="pageInterventionLivraison.html"> 
+        <div>
+            <button id="livraison">
+                <img src="images/camion.jpg"/><br/>
                 Livraison
-            </a>
+            </button>
         </div>
-        
+
         <div>
-            <a href="pageInterventionIncident.html"> 
+            <button id="incident">
+                <img src="images/incident.jpg"/><br/>
                 Incident
-            </a>
+            </button>
+        </div>
+
+        <div>
+            <button id="animal">
+                <img src="images/chat.jpg"/><br/>
+                Animal
+            </button>
         </div>
         
-        <div>
-            <a href="pageInterventionAnimal.html"> 
-                Animal
-            </a>
+        <div id="champs-livraison">
+            <p> Pour quel objet ? </p>
+            <input type="text" id="champ-livraison-objet"/><br>
+            <p> Pour quelle entreprise ? </p>
+            <input type="text" id="champ-livraison-livreur" /><br>
+            <p> Décrivez votre problème </p>
+            <input type="text" id="champ-livraison-description" /><br>
         </div>
+        
+        <div id="champs-incident">
+            <p> Décrivez votre problème </p>
+            <input type="text" id="champ-incident-description" /><br>
+        </div>
+        
+        <div id="champs-animal">
+            <p> De quel animal s'agit-il ? </p>
+            <input type="text" id="champ-animal-type" /><br>
+            <p> Description de l'intervention </p>
+            <input type="text" id="champ-animal-description"/><br>
+        </div>
+        
+        <button id="valider">Valider</button>
+        
+        <script>
+
+            function traiterLivraison() {
+                
+                document.getElementById("champs-livraison").style.visibility = "visible";
+                document.getElementById("champs-incident").style.visibility = "hidden";
+                document.getElementById("champs-animal").style.visibility = "hidden";
+                
+                document.getElementById("valider").style.visibility = "visible";
+                
+                $('#valider').on('click', function () {
+                    alert("toto");
+                });
+               
+            }
+            
+            function traiterIncident() {
+                
+                document.getElementById("champs-incident").style.visibility = "visible";
+                document.getElementById("champs-livraison").style.visibility = "hidden";
+                document.getElementById("champs-animal").style.visibility = "hidden";
+                
+                document.getElementById("valider").style.visibility = "visible";
+                
+                 $('#valider').on('click', function () {
+                    alert("toto2");
+                });
+               
+            }
+            
+            function traiterAnimal() {
+                
+                document.getElementById("champs-animal").style.visibility = "visible";
+                document.getElementById("champs-incident").style.visibility = "hidden";
+                document.getElementById("champs-livraison").style.visibility = "hidden";
+                
+                document.getElementById("valider").style.visibility = "visible";
+                
+                 $('#valider').on('click', function () {
+                    alert("toto3");
+                });
+            }
+            
+            $(document).ready(function () {
+                
+                $('#livraison').on('click', function () {
+                    traiterLivraison();
+                });
+                
+                $('#incident').on('click', function () {
+                    traiterIncident();
+                });
+                
+                $('#animal').on('click', function () {
+                    traiterAnimal();
+                });
+                 
+            });
+            
+        </script>
 
     </body>
 </html>
