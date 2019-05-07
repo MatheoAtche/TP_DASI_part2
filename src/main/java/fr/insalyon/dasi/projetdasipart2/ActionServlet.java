@@ -14,9 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import metier.modele.Client;
-import metier.service.Service;
+
 
 /**
  *
@@ -42,9 +40,9 @@ public class ActionServlet extends HttpServlet {
         Serialisation serialisation = null;
         
         switch(todo){
-            case "connecter" :
-                action = new ConnecterAction();
-                serialisation = new ConnecterSerialisation();
+            case "connecterClient" :
+                action = new ConnecterClientAction();
+                serialisation = new ConnecterClientSerialisation();
                 action.executer(request);
                 serialisation.serialiser(request,response);
                 break;
