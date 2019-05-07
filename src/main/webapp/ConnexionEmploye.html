@@ -13,15 +13,17 @@ and open the template in the editor.
             button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
             body{background-color: blue;}
             h1{color: white; text-align: center;}
-            div.connexion{background-color: white; margin : 0%; padding : 20px; border-radius: 10px; width:auto; height:auto;}
+            a{color: white;}
+            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px; align: center;}
             div p{color: blue; text-align: center;}
-            input{border-radius: 10px;}
+            input{border-radius: 10px; width:50%;}
             div.message-erreur{color: black;text-align: center;}
         </style>
     </head>
     <body>
-        <div id="connexion">
-            <p> Connexion (employés) </p>
+        <h1>PROACT'IF</h1>
+        <div class="connexion" id="Connexion">
+            <p> Connexion Employé</p>
             <input type="text" id="champ-login" name="login-employe" /><br>
             <input type="password" id="champ-password" name="password-employe" /><br>
             <div id="message-employe" class="message-erreur"></div>
