@@ -87,11 +87,12 @@ and open the template in the editor.
                 document.getElementById("champs-animal").style.visibility = "hidden";
                 document.getElementById("message-client").style.visibility = "hidden";
                 
-                var champObjet = $('#champ-livraison-objet').val();
-                var champEntreprise = $('#champ-livraison-livreur').val();
-                var champDescription = $('#champ-livraison-description').val();
-                
                 $('#validerLivraison').on('click', function () {
+                    
+                    var champObjet = $('#champ-livraison-objet').val();
+                    var champEntreprise = $('#champ-livraison-livreur').val();
+                    var champDescription = $('#champ-livraison-description').val();
+
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
@@ -123,11 +124,11 @@ and open the template in the editor.
                 document.getElementById("champs-livraison").style.visibility = "hidden";
                 document.getElementById("champs-animal").style.visibility = "hidden";
                 document.getElementById("message-client").style.visibility = "hidden";
-                
-                var champDescription = $('#champ-incident-description').val();
-                
+
                  $('#validerIncident').on('click', function () {
-                    alert('c');
+                    
+                    var champDescription = $('#champ-incident-description').val();
+                    
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
@@ -158,11 +159,10 @@ and open the template in the editor.
                 document.getElementById("champs-livraison").style.visibility = "hidden";
                 document.getElementById("message-client").style.visibility = "hidden";
                 
-                var champAnimal = $('#champ-animal-type').val();
-                var champDescription = $('#champ-animal-description').val();
-                
                  $('#validerAnimal').on('click', function () {
-                    
+                     
+                    var champAnimal = $('#champ-animal-type').val();
+                    var champDescription = $('#champ-animal-description').val();
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',

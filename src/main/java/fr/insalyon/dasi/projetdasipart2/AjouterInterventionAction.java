@@ -25,7 +25,7 @@ public class AjouterInterventionAction extends Action {
   
         Service service = new Service();
         Intervention intervention = null;
-        
+        System.out.println("1"+request.getParameter("description"));
         String typeIntervention = (String)request.getParameter("type");
         switch(typeIntervention) {
             case "livraison" :
@@ -55,7 +55,7 @@ public class AjouterInterventionAction extends Action {
         intervention.setClient(client);
         intervention.setDebut(new Date());
         intervention.setStatut(Intervention.Statut.EN_COURS);
-
+        System.out.println("2"+intervention.getDescription());
         //On ajoute l'intervention
         if (service.EnregistrerDemande(intervention)) {
 

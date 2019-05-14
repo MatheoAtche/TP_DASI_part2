@@ -21,6 +21,7 @@ public class PageAccueilClientAction extends Action {
     @Override
     public boolean executer(HttpServletRequest request) {
         
+        System.out.println("ACCUEIL");
         Client client = (Client)request.getSession().getAttribute("client");
         Integer nbInterventions = Integer.parseInt(request.getParameter("nb"));
         Service service = new Service();
@@ -29,11 +30,12 @@ public class PageAccueilClientAction extends Action {
         List<Intervention> interventionsRetournees = new ArrayList<>();
         
         for(Intervention intervention : interventionsFaites) {
-            interventionsRetournees.add(intervention);
+            //interventionsRetournees.add(intervention);
+            System.out.println("*********"+intervention+" "+intervention.getDescription()+" "+intervention.getStatut());
         }
         
         request.setAttribute("prenomClient",client.getPrenom());
-        request.setAttribute("interventionsClient",interventionsRetournees);
+        request.setAttribute("interventionsClient",interventionsFaites);
         
         return true;
     }

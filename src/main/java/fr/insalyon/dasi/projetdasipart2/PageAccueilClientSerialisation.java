@@ -47,12 +47,16 @@ public class PageAccueilClientSerialisation extends Serialisation {
             
             //On recupère le statut
             String statut;
+            
             if(intervention.getStatut() == Intervention.Statut.ECHEC) {
                 statut = "ECHEC";
+                System.out.println(statut);
             } else if(intervention.getStatut() == Intervention.Statut.SUCCES) {
                 statut = "SUCCES";
+                System.out.println(statut);
             } else {
                 statut = "EN COURS";
+                System.out.println(statut);
             }
             
             jsonInterventions.addProperty("statut",statut);
