@@ -49,7 +49,12 @@ and open the template in the editor.
                         if(data.idEmploye=="null") {
                             $('#message-employe').html('Connexion échouée');
                         } else {
-                            window.location = "pageAccueilEmploye.html";
+                            if (data.disponible=="true"){
+                                window.location = "TableauDeBordEmploye.html";
+                            }
+                            else {
+                                window.location = "pageInterventionEmploye.html";
+                            }
                         }
                     });
                 }

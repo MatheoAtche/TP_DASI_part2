@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Accueil Amploye</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <div class="web_page"> <!--conteneur de la page pour le style-->
+            <header>
+                <h1>Intervention en cours</h1>
+                <button id="deconnexion">Déconnexion</button>
+            </header>
+            <section>
+                <h2>Détails de l'intervention</h2>
+                <button id="Tableau_de_Bord">Tableau de Bord</button>
+                <ul>
+                    <li><strong>Client :</strong></li>
+                    <li><strong>Téléphone :</strong></li>
+                    <li><strong>Message :</strong></li>
+                    <li><strong>Heure :</strong></li>
+                    <li><strong>Adresse :</strong></li>
+                </ul>
+            </section>
+            <footer>
+                Message au client<input type="text" id="Message" name="Message" />
+                <input type="radio" id="choix_cloture1" name="choix" value="Succes" checked>Succès
+                <input type="radio" id="choix_cloture2" name="choix" value="Echec">Echec
+                <button id="Cloture_intervention">Clôturer l'intervention </button>
+            </footer>
+            
+        </div>
+        <script>
+            function Detail_Inter() {
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'GetInter',
+                        message : message,
+                        choix :choix
+                    }
+                }).done(function () {
+                    window.location = "TableauDeBordEmploye.html";
+                });
+            }
+            
+            function Cloture_intervention() {
+                var choix;
+                if (document.getElementById('choix_cloture1').checked) {
+                    choix = document.getElementById('choix_cloture1').value;
+                } else if(document.getElementById('choix_cloture2').checked) {
+                    choix = document.getElementById('choix_cloture2').value;
+                }
+                var message = $('#Message').val();
+            
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'ClotureIntervention',
+                        message : message,
+                        choix :choix
+                    }
+                }).done(function () {
+                    window.location = "TableauDeBordEmploye.html";
+                });
+                
+            }
+            
+            function deconnexion() {
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexionEmploye'
+                    }
+                }).done(function () {
+                    window.location = "index.html";
+                });
+                
+            }
+            
+            $(document).ready(function () {
+            
+                $('#Cloture_intervention').on('click', function () {
+                    Cloture_intervention();
+                });
+                
+                $('#deconnexion').on('click', function () {
+                    deconnexion();
+                });
+                
+                $('#Tableau_de_Bord').on('click', function() {
+                    window.location = "TableauDeBordEmploye.html";
+                });
+                
+            });
+            
+        </script>
+    </body>
+</html>
