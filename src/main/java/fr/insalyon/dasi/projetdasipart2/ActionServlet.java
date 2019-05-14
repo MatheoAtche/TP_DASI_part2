@@ -82,6 +82,16 @@ public class ActionServlet extends HttpServlet {
                 action.executer(request);
                 break;
                 
+            case "deconnexionEmploye" :
+                action = new DeconnexionEmployeAction();
+                action.executer(request);
+                break;
+                
+            case "ClotureIntervention" :
+                action = new ClotureInterventionAction();
+                action.executer(request);
+                break;
+                
             default :
                 PrintWriter out2 = response.getWriter();
                 out2.print("Default");

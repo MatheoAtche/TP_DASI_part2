@@ -49,7 +49,7 @@ and open the template in the editor.
                         if(data.idEmploye=="null") {
                             $('#message-employe').html('Connexion échouée');
                         } else {
-                            if (data.disponible){
+                            if (data.disponible=="true"){
                                 window.location = "TableauDeBordEmploye.html";
                             }
                             else {
