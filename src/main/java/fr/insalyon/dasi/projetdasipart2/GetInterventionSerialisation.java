@@ -31,6 +31,8 @@ public class GetInterventionSerialisation extends Serialisation {
         jsonContainer.addProperty("message", (String) request.getAttribute("message"));
         jsonContainer.addProperty("heure", String.valueOf(request.getAttribute("heure")));
         jsonContainer.addProperty("adresse", (String) request.getAttribute("adresse"));
+        jsonContainer.addProperty("lat",(Number) request.getAttribute("lat"));
+        jsonContainer.addProperty("long", (Number) request.getAttribute("long"));
         System.out.println("Le client est : " + (String) request.getAttribute("client"));
         PrintWriter out = this.getWriterWithJsonHeader(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

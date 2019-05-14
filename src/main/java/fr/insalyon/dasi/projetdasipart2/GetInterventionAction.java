@@ -30,6 +30,8 @@ public class GetInterventionAction extends Action {
         request.setAttribute("message", i.getDescription());
         request.setAttribute("heure", i.getDebut());
         request.setAttribute("adresse", i.getClient().getAdresse().toString());
+        request.setAttribute("lat",i.getClient().getAdresse().getLatitude());
+        request.setAttribute("long", i.getClient().getAdresse().getLongitude());
         return true;
     }
 }
