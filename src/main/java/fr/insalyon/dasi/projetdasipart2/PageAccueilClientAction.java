@@ -21,18 +21,12 @@ public class PageAccueilClientAction extends Action {
     @Override
     public boolean executer(HttpServletRequest request) {
         
-        System.out.println("ACCUEIL");
+        //On récupère toutes les interventions du client
         Client client = (Client)request.getSession().getAttribute("client");
         Integer nbInterventions = Integer.parseInt(request.getParameter("nb"));
         Service service = new Service();
         
         List<Intervention> interventionsFaites = service.getInterventions(client,nbInterventions);
-        List<Intervention> interventionsRetournees = new ArrayList<>();
-        
-        for(Intervention intervention : interventionsFaites) {
-            //interventionsRetournees.add(intervention);
-            System.out.println("*********"+intervention+" "+intervention.getDescription()+" "+intervention.getStatut());
-        }
         
         request.setAttribute("prenomClient",client.getPrenom());
         request.setAttribute("interventionsClient",interventionsFaites);

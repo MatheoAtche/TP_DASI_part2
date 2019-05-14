@@ -25,16 +25,17 @@ public class AjouterInterventionAction extends Action {
   
         Service service = new Service();
         Intervention intervention = null;
-        System.out.println("1"+request.getParameter("description"));
         String typeIntervention = (String)request.getParameter("type");
+        
+        //En fonction du type de l'intervention,
+        //on crée la bonne
         switch(typeIntervention) {
             case "livraison" :
                 InterventionLivraison interventionLivraison = null;
                 interventionLivraison = new InterventionLivraison();
-                String description = "[" +request.getParameter("objet")+"] ";
-                description += "[" +request.getParameter("entreprise")+"] ";
-                description += request.getParameter("description");
-                interventionLivraison.setDescription(description);
+                interventionLivraison.setObjet(request.getParameter("objet"));
+                interventionLivraison.setDescription(request.getParameter("description"));
+                interventionLivraison.setEntreprise(request.getParameter("entreprise"));
                 intervention = interventionLivraison;
                 break;
             case "animal" :
@@ -55,13 +56,11 @@ public class AjouterInterventionAction extends Action {
         intervention.setClient(client);
         intervention.setDebut(new Date());
         intervention.setStatut(Intervention.Statut.EN_COURS);
-        System.out.println("2"+intervention.getDescription());
+
         //On ajoute l'intervention
         if (service.EnregistrerDemande(intervention)) {
-
             request.setAttribute("enregistrementIntervention","OK");
         } else {
-
             request.setAttribute("enregistrementIntervention","KO");
         }
         

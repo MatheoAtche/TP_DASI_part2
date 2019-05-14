@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import metier.modele.Client;
 
 
 /**
@@ -57,6 +58,9 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "chargerPageAccueilClient" :
+                if((Client)session.getAttribute("client") == null) {
+                    response.sendError(403,"Forbidden(No User)");
+                }
                 action = new PageAccueilClientAction();
                 serialisation = new PageAccueilClientSerialisation();
                 action.executer(request);
@@ -71,6 +75,9 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "ajouterIntervention" :
+                if((Client)session.getAttribute("client") == null) {
+                    response.sendError(403,"Forbidden(No User)");
+                }
                 action = new AjouterInterventionAction();
                 serialisation = new AjouterInterventionSerialisation();
                 action.executer(request);
@@ -78,6 +85,9 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "deconnexionClient" :
+                if((Client)session.getAttribute("client") == null) {
+                    response.sendError(403,"Forbidden(No User)");
+                }
                 action = new DeconnexionClientAction();
                 action.executer(request);
                 break;

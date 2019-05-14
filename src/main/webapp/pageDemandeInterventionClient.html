@@ -15,71 +15,81 @@ and open the template in the editor.
             h1{color: white; text-align: center;}
             p{color: white;}
             a{color: white;}
-            div{float: left; width: 20%;}
+            td{color:white;}
+            .bouton{float: left; width: 30%;}
             img{width: 100px; height: 100px;}
-            #champs-livraison{visibility: hidden; }
-            #champs-incident{visibility: hidden;}
-            #champs-animal{visibility: hidden;}
+            input{width:500px;border-radius: 10px;margin-left : 35%; margin-right : 35%; border-radius: 10px; align: center;}
+            #champs-livraison{visibility: hidden;clear:both;}
+            #champs-incident{visibility: hidden;clear:both;}
+            #champs-animal{visibility: hidden;clear:both;}
             #message-client{visibility: hidden;}
             #valider{visibility: hidden;}
-            button{float:right;width:50%;background-color: blue;color:white;border:blue;}
+            #deconnexion{float:right;width:5%;background-color: blue;color:white;border:blue;}
+            .image{float:right;width:50%;background-color: blue;color:white;border:blue;}
+            .valider{float:right;width:5%;border-radius: 10px;}
         </style>
     </head>
     <body>
         <a href="pageAccueilClient.html"> <-- </a>
-        <button id="deconnexion">Déconnexion</button>
-        <h1> Demande d'intervention </h1>
+        <button id="deconnexion">Déconnexion</button><br><br>
+        <h1><b> Demande d'intervention </b></h1><br><br>
         
-        <div>
-            <button id="livraison">
+        <div class="bouton">
+            <button id="livraison" class="image">
                 <img src="images/camion.jpg"/><br/>
                 Livraison
             </button>
         </div>
         
-        <div>
-            <button id="incident">
+        <div class="bouton">
+            <button id="incident" class="image">
                 <img src="images/incident.jpg"/><br/>
                 Incident
             </button>
         </div>
         
-        <div>
-            <button id="animal">
+        <div class="bouton">
+            <button id="animal" class="image"> 
                 <img src="images/chat.jpg"/><br/>
                 Animal
             </button>
         </div>
         
         <div id="champs-livraison">
-            <p> Pour quel objet ? </p>
-            <input type="text" id="champ-livraison-objet"/><br>
-            <p> Pour quelle entreprise ? </p>
-            <input type="text" id="champ-livraison-livreur" /><br>
-            <p> Décrivez votre problème </p>
-            <input type="text" id="champ-livraison-description" /><br>
-            <button id="validerLivraison">Valider</button>
+            <br><br>
+            <table>
+                <tr><td>Pour quel objet ?</td>
+                    <td><input type="text" id="champ-livraison-objet"/></td></tr>
+                <tr><td>Pour quelle entreprise ?</td>
+                    <td><input type="text" id="champ-livraison-livreur" /></td></tr>
+                <tr><td>Décrivez votre problème : </td>
+                    <td><input type="text" id="champ-livraison-description" /></td></tr>
+                <tr><td><button id="validerLivraison" class="valider">V</button></td></tr>
+            </table>
         </div>
         
         <div id="champs-incident">
-            <p> Décrivez votre problème </p>
-            <input type="text" id="champ-incident-description" /><br>
-            <button id="validerIncident">Valider</button>
+            <table>
+                 <tr><td>Décrivez votre problème :</td>
+                     <td><input type="text" id="champ-incident-description" /></td></tr>
+                <tr><td><button id="validerIncident" class="valider">V</button></td></tr>
+            </table>
         </div>
         
         <div id="champs-animal">
-            <p> De quel animal s'agit-il ? </p>
-            <input type="text" id="champ-animal-type" /><br>
-            <p> Description de l'intervention </p>
-            <input type="text" id="champ-animal-description"/><br>
-            <button id="validerAnimal">Valider</button>
+            <table>
+                <tr><td> De quel animal s'agit-il ? </td>
+                    <td><input type="text" id="champ-animal-type" /></td></tr>
+                <tr><td>Description de l'intervention : </td>
+                    <td><input type="text" id="champ-animal-description"/></td></tr>
+                <tr><td><button id="validerAnimal" class="valider">V</button></td></tr>
+            </table>
         </div>
         <p id="message-client">
             Nous n avons aucun employé disponible pour répondre
             à votre demande. Veuillez réessayer plus tard. Merci pour votre compréhension.
         </p>
         <script>
-
             function traiterLivraison() {
                 
                 document.getElementById("champs-livraison").style.visibility = "visible";
@@ -109,8 +119,8 @@ and open the template in the editor.
                         if(data.resultatAjoutIntervention=="KO") {
                             document.getElementById("message-client").style.visibility = "visible";
                         } else {
+                            alert('Intervention ajoutée avec succès !');
                             window.location = "pageAccueilClient.html";
-                            //MESSAGE CLIENT
                         }
 
                     });
@@ -143,6 +153,7 @@ and open the template in the editor.
                         if(data.resultatAjoutIntervention=="KO") {
                             document.getElementById("message-client").style.visibility = "visible";
                         } else {
+                            alert('Intervention ajoutée avec succès !');
                             window.location = "pageAccueilClient.html";
                         }
 
@@ -178,6 +189,7 @@ and open the template in the editor.
                         if(data.resultatAjoutIntervention=="KO") {
                             document.getElementById("message-client").style.visibility = "visible";
                         } else {
+                            alert('Intervention ajoutée avec succès !');
                             window.location = "pageAccueilClient.html";
                         }
 

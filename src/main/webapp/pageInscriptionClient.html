@@ -9,34 +9,42 @@
             body{background-color: blue;}
             h1{color: white; text-align: center;}
             a{color: white;}
-            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px; align: center;}
+            div.connexion{background-color: white; margin-left : 20%; margin-right : 20%; padding-bottom : 8%; border-radius: 10px; align: center;}
             div p{color: blue; text-align: center;}
-            input{border-radius: 10px; width:50%;}
-            div.message-erreur{color: black;text-align: center;}
+            input{border-radius: 10px; width:100%;}
+            div.message-erreur{color: red;text-align: center;}
+            td {width:50%;}
+            .box{width:50%;}
+            #gauche{float:left;width:50%;padding-right: 30px;}
+            #droite{float:rigth;width:50%;}
         </style>
     </head>
     <body>
         <h1>PROACT'IF</h1>
-        <a href="index.html"> <-- </a>
+        <a href="index.html"><b> <-- </b></a>
         <div class="connexion">
-            <p> Inscription  </p>
+            <p><b> Inscription  </b></p>
+            <table id="gauche">
+                <tr><td>Adresse mail</td><td><input type="text" id="champ-login-client" name="login-client" /></td></tr>
+                <tr><td>Mot de passe </td><td><input type="text" id="champ-password-client" name="password-client" /></td></tr>
+                <tr><td>Civilité </td><td>
+                <input class="box" type="radio" id="champ-civilite-client1" name="civilite-client" value="M." checked>M.
+                <input class="box" type="radio" id="champ-civilite-client2" name="civilite-client" value="Mme.">Mme.
+                <input class="box" type="radio" id="champ-civilite-client3" name="civilite-client" value="Non spécifié">Non spécifié</td></tr>
+                <tr><td>Prénom </td><td><input type="text" id="champ-prenom-client" name="prenom-client" /></td></tr>
+                <tr><td>Nom </td><td><input type="text" id="champ-nom-client" name="nom-client" /></td></tr>
+                <tr><td>Date de naissance </td><td><input type="date" id="champ-date-client" name="date-client" /></td></tr>
+                <tr><td><div id="message-client" class="message-erreur" style=></div></td></tr>
+                <tr><td><button id="bouton-inscription-client">Valider</button><br></td></tr>
+            </table>  
             
-            Adresse mail <input type="text" id="champ-login-client" name="login-client" /><br>
-            Mot de passe <input type="text" id="champ-password-client" name="password-client" /><br>
-            Civilité <br>
-            <input type="radio" id="champ-civilite-client1" name="civilite-client" value="M." checked>M.
-            <input type="radio" id="champ-civilite-client2" name="civilite-client" value="Mme.">Mme.
-            <input type="radio" id="champ-civilite-client3" name="civilite-client" value="Non spécifié">Non spécifié<br>
-            Prénom <input type="text" id="champ-prenom-client" name="prenom-client" /><br>
-            Nom <input type="text" id="champ-nom-client" name="nom-client" /><br>
-            Date de naissance <input type="date" id="champ-date-client" name="date-client" /><br>
-            Adresse ligne 1 <input type="text" id="champ-ad1-client" name="ad1-client" /><br>
-            Adresse ligne 2 <input type="text" id="champ-ad2-client" name="ad2-client" /><br>
-            Ville <input type="text" id="champ-ville-client" name="ville-client" /><br>
-            Téléphone <input type="number" id="champ-tel-client" name="tel-client" /><br>
-            
-            <div id="message-client" class="message-erreur"></div>
-            <button id="bouton-inscription-client">Valider</button><br>
+            <table id="droite">    
+                <tr><td>Adresse ligne 1 </td><td><input type="text" id="champ-ad1-client" name="ad1-client" /></td></tr>
+                <tr><td>Adresse ligne 2 </td><td><input type="text" id="champ-ad2-client" name="ad2-client" /></td></tr>
+                <tr><td>Ville </td><td><input type="text" id="champ-ville-client" name="ville-client" /></td></tr>
+                <tr><td>Téléphone </td><td><input type="number" id="champ-tel-client" name="tel-client" /></td></tr>
+            </table>
+
         </div>
         
         <script>
@@ -62,41 +70,34 @@
                 var champVille = $('#champ-ville-client').val();
                 var champTel = $('#champ-tel-client').val();
 
-                if(champLogin != "" && champPassword != "" && champCivilite != "" 
-                        && champPrenom != "" && champNom !="" && champDate != ""
-                        && champAd1 != "" && champVille != "" && champTel !="") {
-                    
-                    $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'inscrireClient',
-                        login: champLogin,
-                        password: champPassword,
-                        civilite: champCivilite,
-                        prenom: champPrenom,
-                        nom: champNom,
-                        date: champDate,
-                        ad1: champAd1,
-                        ad2: champAd2,
-                        ville: champVille,
-                        tel: champTel
-                    },
-                    dataType: 'json'
-                    }).done(function (data) {
+                $.ajax({
+                url: './ActionServlet',
+                method: 'POST',
+                data: {
+                    todo: 'inscrireClient',
+                    login: champLogin,
+                    password: champPassword,
+                    civilite: champCivilite,
+                    prenom: champPrenom,
+                    nom: champNom,
+                    date: champDate,
+                    ad1: champAd1,
+                    ad2: champAd2,
+                    ville: champVille,
+                    tel: champTel
+                },
+                dataType: 'json'
+                }).done(function (data) {
 
-                        if(data.resultatInscription=="KO") {
-                            $('#message-client').html('Inscription échouée');
-                        } else {
-                            window.location = "pageAccueilClient.html";
-                        }
+                    if(data.resultatInscription=="KO") {
+                        $('#message-client').html('Inscription échouée');
+                    } else if(data.resultatInscription=="champsVide") {
+                        $('#message-client').html('Veuillez remplir tous les champs (seule Adresse 2 est facultative) !');
+                    }  else {
+                        window.location = "pageAccueilClient.html";
+                    }
 
-                    });
-                    
-                } else {
-                    $('#message-client').html('Veuillez remplir tous les champs.');
-                }
-
+                });
                 
             }
             

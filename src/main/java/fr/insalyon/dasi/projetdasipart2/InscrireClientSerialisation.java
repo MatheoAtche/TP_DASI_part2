@@ -24,10 +24,14 @@ public class InscrireClientSerialisation extends Serialisation {
         
         JsonObject jsonContainer = new JsonObject();
         String reponseInscription = (String)request.getAttribute("resultatInscription");
+        
+        //En fonction des résultats de l'inscription, on renvoit un résultat différent
         if(reponseInscription.equals("OK")) {
             jsonContainer.addProperty("resultatInscription","OK");
-        } else {
-           jsonContainer.addProperty("resultatInscription","OK");
+        } else if(reponseInscription.equals("champsVide")) {
+            jsonContainer.addProperty("resultatInscription","champsVide");
+        }else {
+           jsonContainer.addProperty("resultatInscription","KO");
         }
         
         PrintWriter out = this.getWriterWithJsonHeader(response);

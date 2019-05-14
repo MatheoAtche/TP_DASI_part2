@@ -24,6 +24,9 @@ public class AjouterInterventionSerialisation extends Serialisation {
         
         JsonObject jsonContainer = new JsonObject();
         String resultatAjoutIntervention = (String)request.getAttribute("enregistrementIntervention");
+        
+        //En fonction du résultat de l'ajout de la personne,
+        //On renvoit un résultat différent
         if(resultatAjoutIntervention.equals("OK")) {
             jsonContainer.addProperty("resultatAjoutIntervention","OK");
         } else {

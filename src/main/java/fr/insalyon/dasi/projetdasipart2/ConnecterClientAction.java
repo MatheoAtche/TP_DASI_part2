@@ -22,12 +22,15 @@ public class ConnecterClientAction extends Action {
         Service service = new Service();
        
         Client client = null;
+        //On essaye d'authentifier le client
         client = service.AuthentificationClient(request.getParameter("login"), request.getParameter("password"));
         if(client != null)
         {
+            //Si l'authentification a réussi, on met à jour la session
             request.setAttribute("clientConnecte",client);
             request.getSession().setAttribute("client", client);
         } else {
+            //Si l'authentification a echoué, on met à jour la session à null
             request.setAttribute("clientConnecte",null);
             request.getSession().setAttribute("client", null);
         }

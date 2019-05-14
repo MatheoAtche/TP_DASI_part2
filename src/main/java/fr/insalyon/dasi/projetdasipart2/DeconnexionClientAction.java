@@ -15,7 +15,7 @@ public class DeconnexionClientAction extends Action {
 
     @Override
     public boolean executer(HttpServletRequest request) {
-        
+        //On met à jour la variable de session
         request.getSession().setAttribute("client",null);
         return true;
     }

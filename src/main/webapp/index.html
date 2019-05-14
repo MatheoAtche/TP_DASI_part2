@@ -4,60 +4,15 @@
         <title>Page de connexion - PROACT'IF</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <style>
-            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
-            body{background-color: blue;}
-            h1{color: white; text-align: center;}
-            a{color: black;}
-            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px; align: center;}
-            div p{color: blue; text-align: center;}
-            input{border-radius: 10px; width:50%;}
-            div.message-erreur{color: black;text-align: center;}
-        </style>
+
     </head>
     <body>
-        <h1>PROACT'IF</h1>
-        <div class="connexion">
-            <p> Connexion </p>
-            <input type="text" id="champ-login-client" name="login-client" /><br>
-            <input type="password" id="champ-password-client" name="password-client" /><br>
-            <div id="message-client" class="message-erreur"></div>
-            <button id="bouton-connexion-client">Valider</button><br>
-            <a href="pageInscriptionClient.html"> Pas encore inscrit ? Cliquez ici </a>
-        </div>
-        <a href="ConnexionEmploye.html">Connexion employé</a>
+        
         <script>
-
-            function connexionClient() {
-                
-                var champLogin = $('#champ-login-client').val();
-                var champPassword = $('#champ-password-client').val();
-
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'connecterClient',
-                        login: champLogin,
-                        password: champPassword
-                    },
-                    dataType: 'json'
-                }).done(function (data) {
-                    
-                    if(data.idClient=="null") {
-                        $('#message-client').html('Connexion échouée');
-                    } else {
-                        window.location = "pageAccueilClient.html";
-                    }
-                    
-                });
-            }
             
             $(document).ready(function () {
                 
-                $('#bouton-connexion-client').on('click', function () {
-                    connexionClient();
-                });
+                window.location ="connexionClient.html"
                  
             });
             

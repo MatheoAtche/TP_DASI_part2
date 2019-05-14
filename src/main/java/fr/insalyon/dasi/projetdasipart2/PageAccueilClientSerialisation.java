@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import metier.modele.Client;
 import metier.modele.Intervention;
+import metier.modele.InterventionAnimal;
+import metier.modele.InterventionLivraison;
 import metier.service.TimeService;
 
 /**
@@ -29,6 +31,7 @@ public class PageAccueilClientSerialisation extends Serialisation {
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
+        //On récpère toutes les données des interventions 
         JsonObject jsonContainer = new JsonObject();
         JsonArray jsonArrayInterventions = new JsonArray();
         
@@ -45,32 +48,43 @@ public class PageAccueilClientSerialisation extends Serialisation {
             //On récupère le type
             jsonInterventions.addProperty("type",intervention.typeToString());
             
+            //On récupère l id
+            jsonInterventions.addProperty("id",intervention.getId());
+            
             //On recupère le statut
             String statut;
-            
             if(intervention.getStatut() == Intervention.Statut.ECHEC) {
                 statut = "ECHEC";
-                System.out.println(statut);
             } else if(intervention.getStatut() == Intervention.Statut.SUCCES) {
                 statut = "SUCCES";
-                System.out.println(statut);
             } else {
                 statut = "EN COURS";
-                System.out.println(statut);
             }
-            
             jsonInterventions.addProperty("statut",statut);
             
             //On récupère le message de fin si cest termine
             if (intervention.getStatut() == Intervention.Statut.SUCCES || intervention.getStatut() == Intervention.Statut.ECHEC) {
-                //On récupère la description
-                jsonInterventions.addProperty("description",intervention.getDescription()+" --- "+
-                        "Mission cloturée à : "+TimeService.dateToHeure(intervention.getFin())+" : "+intervention.getMessageFin());
+                jsonInterventions.addProperty("supplementDate",TimeService.dateToHeure(intervention.getFin()));
+                jsonInterventions.addProperty("supplementMessage",intervention.getMessageFin());
             } else {
-                jsonInterventions.addProperty("description",intervention.getDescription());
+                jsonInterventions.addProperty("supplementDate","<<... En cours ... >>");
+                jsonInterventions.addProperty("supplementMessage","");
             }
             
+            //En fonction du type, on ne met pas les mêmes descriptions
+            if(intervention.typeToString().equals("Animal")) {
+                String animal=((InterventionAnimal)intervention).getAnimal();
+                jsonInterventions.addProperty("description","["+ animal +"] "+intervention.getDescription());
+            } else if(intervention.typeToString().equals("Livraison")) {
+                String entreprise =((InterventionLivraison)intervention).getEntreprise();
+                String objet =((InterventionLivraison)intervention).getObjet();
+                jsonInterventions.addProperty("description","["+ objet +"] ["+ entreprise +"] "+intervention.getDescription());
+            }else {
+                jsonInterventions.addProperty("description",intervention.getDescription());
+            }
+
             jsonArrayInterventions.add(jsonInterventions);
+            
         }
         
         jsonContainer.addProperty("prenomClient",prenomClient);
