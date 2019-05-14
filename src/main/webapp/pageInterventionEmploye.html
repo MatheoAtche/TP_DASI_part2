@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Accueil Amploye</title>
+        <title>Accueil Employe</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
@@ -19,12 +19,7 @@ and open the template in the editor.
             <section>
                 <h2>Détails de l'intervention</h2>
                 <button id="Tableau_de_Bord">Tableau de Bord</button>
-                <ul>
-                    <li><strong>Client :</strong></li>
-                    <li><strong>Téléphone :</strong></li>
-                    <li><strong>Message :</strong></li>
-                    <li><strong>Heure :</strong></li>
-                    <li><strong>Adresse :</strong></li>
+                <ul id="liste_detail">
                 </ul>
             </section>
             <footer>
@@ -41,12 +36,16 @@ and open the template in the editor.
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'GetInter',
-                        message : message,
-                        choix :choix
-                    }
-                }).done(function () {
-                    window.location = "TableauDeBordEmploye.html";
+                        todo: 'GetInter'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    $('#liste_detail').append('<li><strong>Client :</strong></li>' + data.client
+                                                + '<li><strong>Téléphone :</strong> </li>' + data.tel
+                                                + '<li><strong>Type :</strong> </li>' + data.type
+                                                + '<li><strong>Message :</strong> </li>' + data.message
+                                                + '<li><strong>Heure :</strong> </li>' + data.heure
+                                                + '<li><strong>Adresse :</strong> </li>' + data.adresse);
                 });
             }
             
@@ -100,6 +99,8 @@ and open the template in the editor.
                 $('#Tableau_de_Bord').on('click', function() {
                     window.location = "TableauDeBordEmploye.html";
                 });
+                
+                Detail_Inter();
                 
             });
             
