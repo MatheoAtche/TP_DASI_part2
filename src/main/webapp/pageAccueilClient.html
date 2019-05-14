@@ -14,11 +14,12 @@
             table{border: 2px solid black; width: 100%;}
             th{border: 2px solid black;}
             td{border: 2px solid black;}
+            #deconnexion{float:right;width:50%;background-color: blue;color:white;border:blue;}
         </style>
     </head>
     <body>
         <div class="haut">
-            <a href="index.html">Déconnexion</a>
+            <button id="deconnexion">Déconnexion</button>
             <h1 id="message-client"></h1>
             <button id="intervention-client">Demander une nouvelle intervention</button><br/>
         </div>
@@ -32,22 +33,24 @@
                 <th>Statut</th>
             </tr>
         </table>
+        <button id="plus">Afficher plus</button>
         <script>
 
-            function chargerPageAccueilClient() {
-                
+            function chargerPageAccueilClient(nombreIntervention) {
+
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'chargerPageAccueilClient'
+                        todo: 'chargerPageAccueilClient',
+                        nb : nombreIntervention
                     },
                     dataType: 'json'
                 }).done(function (data) {
                     
                     $('#message-client').html('Bonjour '+data.prenomClient);
                     $.each(data.interventionsClient, function(i,intervention) {
-                        $('#table-intervention').append('<tr><td>'+intervention.dateDebut+'</td><td>'+intervention.type+'</td><td>'+intervention.description+'</td><td>'+intervention.description+'</td></tr>');
+                        $('#table-intervention').append('<tr><td>'+intervention.dateDebut+'</td><td>'+intervention.type+'</td><td>'+intervention.description+'</td><td>'+intervention.statut+'</td></tr>');
                     });
                     
                    
@@ -58,17 +61,44 @@
                 window.location = "pageDemandeInterventionClient.html";
             }
             
-           
-
+            function afficherPlus() {
+                
+                var element = document.getElementById("table-intervention");
+                while (element.firstChild) {
+                  element.removeChild(element.firstChild);
+                }
+                $('#table-intervention').append('<tr><th>Date</th><th>Type</th><th>Description</th><th>Statut</th></tr>');
+                chargerPageAccueilClient(20);
+            }
+            
+            function deconnexion() {
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexionClient'
+                    }
+                }).done(function () {
+                    window.location = "index.html";
+                });
+                
+            }
+            
             $(document).ready(function () {
                 
-                chargerPageAccueilClient();
+                chargerPageAccueilClient(10);
                 $('#intervention-client').on('click', function () {
-                    
                     demandeIntervention();
                 });
                 
-               
+                $('#plus').on('click', function () {
+                    afficherPlus();
+                });
+                
+                $('#deconnexion').on('click', function () {
+                    deconnexion();
+                });
                 
             });
             

@@ -1,16 +1,113 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>Page inscription client à faire</title>
+        <title>Page inscription client - PROACT'IF</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
+            body{background-color: blue;}
+            h1{color: white; text-align: center;}
+            a{color: white;}
+            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px; align: center;}
+            div p{color: blue; text-align: center;}
+            input{border-radius: 10px; width:50%;}
+            div.message-erreur{color: black;text-align: center;}
+        </style>
     </head>
     <body>
-        <div>Page inscription client à faire</div>
+        <h1>PROACT'IF</h1>
+        <a href="index.html"> <-- </a>
+        <div class="connexion">
+            <p> Inscription  </p>
+            
+            Adresse mail <input type="text" id="champ-login-client" name="login-client" /><br>
+            Mot de passe <input type="text" id="champ-password-client" name="password-client" /><br>
+            Civilité <br>
+            <input type="radio" id="champ-civilite-client1" name="civilite-client" value="M." checked>M.
+            <input type="radio" id="champ-civilite-client2" name="civilite-client" value="Mme.">Mme.
+            <input type="radio" id="champ-civilite-client3" name="civilite-client" value="Non spécifié">Non spécifié<br>
+            Prénom <input type="text" id="champ-prenom-client" name="prenom-client" /><br>
+            Nom <input type="text" id="champ-nom-client" name="nom-client" /><br>
+            Date de naissance <input type="date" id="champ-date-client" name="date-client" /><br>
+            Adresse ligne 1 <input type="text" id="champ-ad1-client" name="ad1-client" /><br>
+            Adresse ligne 2 <input type="text" id="champ-ad2-client" name="ad2-client" /><br>
+            Ville <input type="text" id="champ-ville-client" name="ville-client" /><br>
+            Téléphone <input type="number" id="champ-tel-client" name="tel-client" /><br>
+            
+            <div id="message-client" class="message-erreur"></div>
+            <button id="bouton-inscription-client">Valider</button><br>
+        </div>
+        
+        <script>
+
+            function inscriptionClient() {
+                
+                var champLogin = $('#champ-login-client').val();
+                var champPassword = $('#champ-password-client').val();
+                var champCivilite;
+                if (document.getElementById('champ-civilite-client1').checked) {
+                    champCivilite = document.getElementById('champ-civilite-client1').value;
+                } else if (document.getElementById('champ-civilite-client2').checked) {
+                    champCivilite = document.getElementById('champ-civilite-client2').value;
+                } else {
+                    champCivilite = document.getElementById('champ-civilite-client3').value;
+                }
+                
+                var champPrenom = $('#champ-prenom-client').val();
+                var champNom = $('#champ-nom-client').val();
+                var champDate = $('#champ-date-client').val();
+                var champAd1= $('#champ-ad1-client').val();
+                var champAd2 = $('#champ-ad2-client').val();
+                var champVille = $('#champ-ville-client').val();
+                var champTel = $('#champ-tel-client').val();
+
+                if(champLogin != "" && champPassword != "" && champCivilite != "" 
+                        && champPrenom != "" && champNom !="" && champDate != ""
+                        && champAd1 != "" && champVille != "" && champTel !="") {
+                    
+                    $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'inscrireClient',
+                        login: champLogin,
+                        password: champPassword,
+                        civilite: champCivilite,
+                        prenom: champPrenom,
+                        nom: champNom,
+                        date: champDate,
+                        ad1: champAd1,
+                        ad2: champAd2,
+                        ville: champVille,
+                        tel: champTel
+                    },
+                    dataType: 'json'
+                    }).done(function (data) {
+
+                        if(data.resultatInscription=="KO") {
+                            $('#message-client').html('Inscription échouée');
+                        } else {
+                            window.location = "pageAccueilClient.html";
+                        }
+
+                    });
+                    
+                } else {
+                    $('#message-client').html('Veuillez remplir tous les champs.');
+                }
+
+                
+            }
+            
+            $(document).ready(function () {
+                
+                $('#bouton-inscription-client').on('click', function () {
+                    inscriptionClient();
+                });
+                 
+            });
+            
+        </script>
     </body>
 </html>

@@ -62,6 +62,26 @@ public class ActionServlet extends HttpServlet {
                 action.executer(request);
                 serialisation.serialiser(request,response);
                 break;
+                
+            case "inscrireClient" :
+                action = new InscrireClientAction();
+                serialisation = new InscrireClientSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request,response);
+                break;
+                
+            case "ajouterIntervention" :
+                action = new AjouterInterventionAction();
+                serialisation = new AjouterInterventionSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request,response);
+                break;
+                
+            case "deconnexionClient" :
+                action = new DeconnexionClientAction();
+                action.executer(request);
+                break;
+                
             default :
                 PrintWriter out2 = response.getWriter();
                 out2.print("Default");

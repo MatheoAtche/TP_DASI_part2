@@ -45,20 +45,25 @@ public class PageAccueilClientSerialisation extends Serialisation {
             //On récupère le type
             jsonInterventions.addProperty("type",intervention.typeToString());
             
-            //On récupère la description
-            jsonInterventions.addProperty("description",intervention.getDescription());
-            
             //On recupère le statut
-            String statut = intervention.getStatut() + "";
+            String statut;
+            if(intervention.getStatut() == Intervention.Statut.ECHEC) {
+                statut = "ECHEC";
+            } else if(intervention.getStatut() == Intervention.Statut.SUCCES) {
+                statut = "SUCCES";
+            } else {
+                statut = "EN COURS";
+            }
+            
             jsonInterventions.addProperty("statut",statut);
             
-            //On récupère le message de fin si c'est un succès
-            if (intervention.getStatut() != Intervention.Statut.EN_COURS) {
-                jsonInterventions.addProperty("dateFin",TimeService.dateToHeure(intervention.getFin()));
-                jsonInterventions.addProperty("message",intervention.getMessageFin());
+            //On récupère le message de fin si cest termine
+            if (intervention.getStatut() == Intervention.Statut.SUCCES || intervention.getStatut() == Intervention.Statut.ECHEC) {
+                //On récupère la description
+                jsonInterventions.addProperty("description",intervention.getDescription()+" --- "+
+                        "Mission cloturée à : "+TimeService.dateToHeure(intervention.getFin())+" : "+intervention.getMessageFin());
             } else {
-                jsonInterventions.addProperty("dateFin","null");
-                jsonInterventions.addProperty("message","null");
+                jsonInterventions.addProperty("description",intervention.getDescription());
             }
             
             jsonArrayInterventions.add(jsonInterventions);

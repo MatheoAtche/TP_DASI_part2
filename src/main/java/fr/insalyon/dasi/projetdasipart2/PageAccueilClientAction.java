@@ -22,9 +22,10 @@ public class PageAccueilClientAction extends Action {
     public boolean executer(HttpServletRequest request) {
         
         Client client = (Client)request.getSession().getAttribute("client");
+        Integer nbInterventions = Integer.parseInt(request.getParameter("nb"));
         Service service = new Service();
         
-        List<Intervention> interventionsFaites = service.getInterventions(client);
+        List<Intervention> interventionsFaites = service.getInterventions(client,nbInterventions);
         List<Intervention> interventionsRetournees = new ArrayList<>();
         
         for(Intervention intervention : interventionsFaites) {
