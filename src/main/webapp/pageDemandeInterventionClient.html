@@ -90,15 +90,18 @@ and open the template in the editor.
             à votre demande. Veuillez réessayer plus tard. Merci pour votre compréhension.
         </p>
         <script>
+            
+            //Lorsque le client veut ajouter une intervention livraison
             function traiterLivraison() {
-                
+                //Si on fait faire une livraison, on cache/fait apparaître tout ce
+                //qui est nécessaire
                 document.getElementById("champs-livraison").style.visibility = "visible";
                 document.getElementById("champs-incident").style.visibility = "hidden";
                 document.getElementById("champs-animal").style.visibility = "hidden";
                 document.getElementById("message-client").style.visibility = "hidden";
-                
+                //Si on clique sur le bouton d'ajout, on tente d'ajouter l'intervention
                 $('#validerLivraison').on('click', function () {
-                    
+                    //On recupere les champs
                     var champObjet = $('#champ-livraison-objet').val();
                     var champEntreprise = $('#champ-livraison-livreur').val();
                     var champDescription = $('#champ-livraison-description').val();
@@ -117,8 +120,10 @@ and open the template in the editor.
                     }).done(function (data) {
 
                         if(data.resultatAjoutIntervention=="KO") {
+                            //Si l'intervention n'a pas reussi, on l'indique
                             document.getElementById("message-client").style.visibility = "visible";
                         } else {
+                            //Sinon, on change de page en lui indiquant le succès de l'ajout
                             alert('Intervention ajoutée avec succès !');
                             window.location = "pageAccueilClient.html";
                         }
@@ -128,6 +133,8 @@ and open the template in the editor.
                
             }
             
+            //Le traitment est identique que la fonction traiterLivraison
+            //Lorsque le client veut ajouter une intervention incident
             function traiterIncident() {
                 
                 document.getElementById("champs-incident").style.visibility = "visible";
@@ -163,6 +170,8 @@ and open the template in the editor.
                
             }
             
+            //Le traitment est identique que la fonction traiterLivraison
+            //Lorsque le client veut ajouter une intervention animal
             function traiterAnimal() {
                 
                 document.getElementById("champs-animal").style.visibility = "visible";
@@ -199,22 +208,23 @@ and open the template in the editor.
                 });
             }
             
+            //Pour deconnecter le client
             function deconnexion() {
-                
-                    $.ajax({
-                        url: './ActionServlet',
-                        method: 'POST',
-                        data: {
-                            todo: 'deconnexionClient'
-                        }
-                    }).done(function () {
-                        window.location = "index.html";
-                    });
+                //Pour deconnecter le client, puis on le redirige sur la page d'accueil
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexionClient'
+                    }
+                }).done(function () {
+                    window.location = "index.html";
+                });
                 
             }
             
             $(document).ready(function () {
-                
+                //On ajoute le fait de pouvoir cliquer sur les boutons
                 $('#livraison').on('click', function () {
                     traiterLivraison();
                 });

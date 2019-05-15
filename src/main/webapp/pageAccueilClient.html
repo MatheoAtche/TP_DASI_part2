@@ -41,8 +41,10 @@
         <br><br>
         <center><button id="plus">Afficher plus</button></center>
         <script>
+            
+            //Pour afficher le tableau d'interventions
             function chargerPageAccueilClient(nombreIntervention) {
-
+                //On affiche les 10 interventions
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -55,7 +57,7 @@
                     
                     $('#message-client').html('Bonjour '+data.prenomClient);
                     $.each(data.interventionsClient, function(i,intervention) {
-                        
+                        //On ajoute le fait de pouvoir cliquer sur les lignes
                         $('#table-intervention').append('<tr id="L'+ intervention.id +'"><td>'+intervention.dateDebut+'</td><td>'
                                 +intervention.type+'</td><td>'+intervention.description+'<p class="p" id="P'+ intervention.id +'"> Mission cloturée à '+
                                 intervention.supplementDate+' : '+ intervention.supplementMessage +
@@ -64,12 +66,13 @@
                         var idLigne = '#L'+intervention.id;
                         var idP = 'P'+intervention.id;
                         var idB = '#B'+intervention.id;
-                        
+                        //Si on clique sur la ligne, les détails apparaissent
                         $(idLigne).on('click', function () {
                             document.getElementById(idP).style.display = "block";
                             return false;
                         });
-                        
+                        //Si on clique sur la croix du détail, cela fait
+                        //disparaître le détail
                         $(idB).on('click', function () {
                             document.getElementById(idP).style.display = "none";
                             return false;
@@ -81,12 +84,15 @@
                 });
             }
 
+            //Si le client veut faire une demande dintervention
             function demandeIntervention() {
                 window.location = "pageDemandeInterventionClient.html";
             }
             
+            //Pour afficher plus de 10 lignes dans le tableau
             function afficherPlus() {
-                
+                //On vide la table, on la re-cree
+                //et on la rempli avec 20 lignes (s'il y en a au moins 20)
                 var element = document.getElementById("table-intervention");
                 while (element.firstChild) {
                   element.removeChild(element.firstChild);
@@ -95,8 +101,10 @@
                 chargerPageAccueilClient(20);
             }
             
+            //Pour deconnecter le client
             function deconnexion() {
-                
+                //On deconnecte le client
+                //et on redirige vers la page d'accueil
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -110,7 +118,8 @@
             }
             
             $(document).ready(function () {
-                
+                //On affiche 10 interventions de base
+                //On ajoute la possibilité de cliquer sur les boutons
                 chargerPageAccueilClient(10);
                 $('#intervention-client').on('click', function () {
                     demandeIntervention();

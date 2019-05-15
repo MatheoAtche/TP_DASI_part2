@@ -28,9 +28,11 @@
         </div>
         
         <script>
-
+            
+            //Pour connecter un client
             function connexionClient() {
-                
+                //Récupère les valeurs des champs et essaye de connecter
+                //le client
                 var champLogin = $('#champ-login-client').val();
                 var champPassword = $('#champ-password-client').val();
 
@@ -44,10 +46,11 @@
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    
+                    //Si la connexion a echoue, on l indique
                     if(data.idClient=="null") {
                         $('#message-client').html('Connexion échouée');
                     } else {
+                        //Sinon on redirige vers la bonne page
                         window.location = "pageAccueilClient.html";
                     }
                     
