@@ -34,7 +34,7 @@
                 <tr><td>Prénom </td><td><input type="text" id="champ-prenom-client" name="prenom-client" /></td></tr>
                 <tr><td>Nom </td><td><input type="text" id="champ-nom-client" name="nom-client" /></td></tr>
                 <tr><td>Date de naissance </td><td><input type="date" id="champ-date-client" name="date-client" /></td></tr>
-                <tr><td><div id="message-client" class="message-erreur" style=></div></td></tr>
+                <tr><td><div id="message-client" class="message-erreur"></div></td></tr>
                 <tr><td><button id="bouton-inscription-client">Valider</button><br></td></tr>
             </table>  
             
@@ -49,8 +49,9 @@
         
         <script>
 
+            //Pour inscrire le client
             function inscriptionClient() {
-                
+                //On recupere tous les champs
                 var champLogin = $('#champ-login-client').val();
                 var champPassword = $('#champ-password-client').val();
                 var champCivilite;
@@ -88,12 +89,15 @@
                 },
                 dataType: 'json'
                 }).done(function (data) {
-
+                    //Si linscription a echoue, on l'indique
                     if(data.resultatInscription=="KO") {
                         $('#message-client').html('Inscription échouée');
                     } else if(data.resultatInscription=="champsVide") {
+                        //Si des champs sont restes vides
                         $('#message-client').html('Veuillez remplir tous les champs (seule Adresse 2 est facultative) !');
                     }  else {
+                        //Si cela a ete un succes, on redirige le client
+                        //vers la page d accueil
                         window.location = "pageAccueilClient.html";
                     }
 
