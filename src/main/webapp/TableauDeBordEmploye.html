@@ -7,10 +7,147 @@ and open the template in the editor.
 <html>
     <head>
         <title>Tableau de bord</title>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style type="text/css">
+            html, body,section { height: 100%; margin: 0; padding: 0; }
+            #map { height: 60%; width: 50%;float : right}
+        </style>
     </head>
     <body>
-        <div>Bienvenue sur le tableau de bord</div>
+        <header>
+            <h1>Tableau de Bord</h1>
+            <button id="deconnexion">Déconnexion</button>
+        </header>
+         <section>
+             <h2>Interventions du jour</h2>
+            <aside id="map"></aside>
+            <article>
+                <h3>Détails de l'intervention</h3>
+                <ul id="liste_detail">
+                </ul>
+            </article>
+            
+        </section>
+
+        <footer>
+            Intervention en cours ou pas
+        </footer>
+        <script>
+            /*function Detail_Inter() {
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'GetInterTabBord'
+                        id : 'id'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    $('#liste_detail').append('<li><strong>Client :</strong></li>' + data.client
+                                                + '<li><strong>Téléphone :</strong> </li>' + data.tel
+                                                + '<li><strong>Type :</strong> </li>' + data.type
+                                                + '<li><strong>Message :</strong> </li>' + data.message
+                                                + '<li><strong>Heure :</strong> </li>' + data.heure
+                                                + '<li><strong>Adresse :</strong> </li>' + data.adresse);
+                                                
+                });
+            }*/
+            
+            function AfficherCarte() {
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'MapTableauBord'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    googleMapInstance = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: 45.7601424, lng: 4.8961779},
+                        zoom: 13
+                    });
+                    
+                    
+                    $.each(data.interventionsJour, function(i,intervention) {
+                        var infowindow = makeInfoWindow;
+                        var marker = new google.maps.Marker({
+                            map: googleMapInstance,
+                            position: {lat: intervention.lat, lng: intervention.long},
+                            title: 'test',
+                        });
+
+                        attachInfoWindow(
+                            marker, infowindow,
+                            '<div>test</div>'
+                            );
+                    });
+                });
+            }
+            
+            /*function AfficherCarte(){
+                googleMapInstance = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 45.7601424, lng: 4.8961779},
+                    zoom: 13
+                });
+                var infowindow = makeInfoWindow('');
+
+                var marker = new google.maps.Marker({
+                    map: googleMapInstance,
+                    position: {lat:45.779670, lng:4.874457},
+                    title: '42',
+                });
+
+                marker.addListener('click', function () {
+
+                    infowindow.setContent('<div>Information: ' + marker.title + '</div>');
+                    infowindow.open(googleMapInstance, marker);
+                });
+            }*/
+            
+            var googleMapInstance = null;
+
+            function makeInfoWindow(title) {
+                return new google.maps.InfoWindow({
+                    content: '<div>Information: ' + title + '</div>'
+                });
+            }
+
+            function attachInfoWindow(marker, infowindow, htmlDescription) {
+                marker.addListener('click', function () {
+
+                    infowindow.setContent(htmlDescription);
+                    infowindow.open(googleMapInstance, this);
+                });
+            }
+            
+            function deconnexion() {
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexionEmploye'
+                    }
+                }).done(function () {
+                    window.location = "index.html";
+                });
+                
+            }
+            
+            $(document).ready(function () {
+                
+                $('#deconnexion').on('click', function () {
+                    deconnexion();
+                });
+                
+                AfficherCarte();
+
+            });
+
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcVVJjfmxsNdbdUYeg9MjQoJJ6THPuap4&callback=initMap">
+        </script>
     </body>
 </html>

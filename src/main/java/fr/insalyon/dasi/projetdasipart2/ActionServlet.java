@@ -108,7 +108,12 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new GetInterventionSerialisation();
                 action.executer(request);
                 serialisation.serialiser(request,response);
-                
+                break;
+            case "MapTableauBord" :
+                action = new MapTableauBordAction();
+                serialisation = new MapTableauBordSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request, response);
                 break;
                 
             default :

@@ -30,7 +30,7 @@ public class ConnecterEmployeSerialisation extends Serialisation {
             jsonContainer.addProperty("nomEmploye",employe.getNom());
             jsonContainer.addProperty("prenomEmploye",employe.getPrenom());
             jsonContainer.addProperty("courrielEmployet",employe.getEmail());
-            jsonContainer.addProperty("disponible",employe.isDisponible());
+            jsonContainer.addProperty("disponible", employe.isDisponible());
         } else {
             jsonContainer.addProperty("idEmploye","null");
             jsonContainer.addProperty("nomEmploye","null");

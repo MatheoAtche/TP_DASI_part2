@@ -21,9 +21,6 @@ public class GetInterventionAction extends Action {
         Service service = new Service();
         Employe employe = (Employe)request.getSession().getAttribute("employe");
         Intervention i = service.getInterventionEnCours(employe);
-        System.out.println(i);
-        System.out.println(i.getClient());
-        System.out.println(i.getClient().getNom());
         request.setAttribute("client", i.getClient().getNom() + " " + i.getClient().getPrenom());
         request.setAttribute("tel", i.getClient().getTelephone());
         request.setAttribute("type", i.typeToString());
