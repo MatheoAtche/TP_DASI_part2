@@ -9,7 +9,7 @@
             body{background-color: blue;}
             h1{color: white; text-align: center;}
             div a{color: blue;}
-            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px; align: center;}
+            div.connexion{background-color: white; margin-left : 35%; margin-right : 35%; padding : 20px; border-radius: 10px;}
             div p{color: blue;}
             input{border-radius: 10px; width:50%;text-align: center;}
             div.message-erreur{color: black;text-align: center;}
@@ -47,7 +47,7 @@
                     dataType: 'json'
                 }).done(function (data) {
                     //Si la connexion a echoue, on l indique
-                    if(data.idClient=="null") {
+                    if(data.idClient==="null") {
                         $('#message-client').html('Connexion échouée');
                     } else {
                         //Sinon on redirige vers la bonne page
