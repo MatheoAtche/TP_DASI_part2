@@ -103,17 +103,26 @@ public class ActionServlet extends HttpServlet {
                 break;
                 
             case "GetInter" :
-                
                 action = new GetInterventionAction();
                 serialisation = new GetInterventionSerialisation();
                 action.executer(request);
                 serialisation.serialiser(request,response);
                 break;
+                
             case "MapTableauBord" :
                 action = new MapTableauBordAction();
                 serialisation = new MapTableauBordSerialisation();
                 action.executer(request);
                 serialisation.serialiser(request, response);
+                break;
+                
+            case "Detail_Inter":
+                System.out.println("servlet1");
+                action = new DetailInterAction();
+                serialisation = new DetailInterSerialisation();
+                action.executer(request);
+                serialisation.serialiser(request, response);
+                System.out.println("servlet2");
                 break;
                 
             default :

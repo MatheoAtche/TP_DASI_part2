@@ -31,29 +31,26 @@ and open the template in the editor.
             
         </section>
 
-        <footer>
-            Intervention en cours ou pas
+        <footer id="bandeau">
+            Aucune intervention en cours
         </footer>
         <script>
-            /*function Detail_Inter() {
+            function Detail_Inter(id_inter) {
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'GetInterTabBord'
-                        id : 'id'
+                        todo: 'Detail_Inter',
+                        id : id_inter
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    $('#liste_detail').append('<li><strong>Client :</strong></li>' + data.client
-                                                + '<li><strong>Téléphone :</strong> </li>' + data.tel
-                                                + '<li><strong>Type :</strong> </li>' + data.type
-                                                + '<li><strong>Message :</strong> </li>' + data.message
-                                                + '<li><strong>Heure :</strong> </li>' + data.heure
-                                                + '<li><strong>Adresse :</strong> </li>' + data.adresse);
-                                                
+                    $('#liste_detail').html('<li><strong>Type :</strong> </li>' + data.type
+                                              + '<li><strong>Message :</strong> </li>' + data.message
+                                              + '<li><strong>Heure :</strong> </li>' + data.heure);
+                     
                 });
-            }*/
+            }
             
             function AfficherCarte() {
                 $.ajax({
@@ -75,36 +72,15 @@ and open the template in the editor.
                         var marker = new google.maps.Marker({
                             map: googleMapInstance,
                             position: {lat: intervention.lat, lng: intervention.long},
-                            title: 'test',
+                            title: intervention.statut,
                         });
-
-                        attachInfoWindow(
-                            marker, infowindow,
-                            '<div>test</div>'
-                            );
+                        
+                        marker.addListener('click', function () {
+                            Detail_Inter(intervention.id);
+                        });
                     });
                 });
             }
-            
-            /*function AfficherCarte(){
-                googleMapInstance = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: 45.7601424, lng: 4.8961779},
-                    zoom: 13
-                });
-                var infowindow = makeInfoWindow('');
-
-                var marker = new google.maps.Marker({
-                    map: googleMapInstance,
-                    position: {lat:45.779670, lng:4.874457},
-                    title: '42',
-                });
-
-                marker.addListener('click', function () {
-
-                    infowindow.setContent('<div>Information: ' + marker.title + '</div>');
-                    infowindow.open(googleMapInstance, marker);
-                });
-            }*/
             
             var googleMapInstance = null;
 
@@ -136,6 +112,20 @@ and open the template in the editor.
                 
             }
             
+            function VerifInterEnCours(){
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'GetInter'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    $('#bandeau').html('<a href="pageInterventionEmploye.html"> /!\ Une intervention est en cours </a>');
+                });
+            }
+
+            
             $(document).ready(function () {
                 
                 $('#deconnexion').on('click', function () {
@@ -143,6 +133,7 @@ and open the template in the editor.
                 });
                 
                 AfficherCarte();
+                VerifInterEnCours();
 
             });
 
