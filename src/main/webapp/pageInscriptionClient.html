@@ -89,13 +89,15 @@
                 },
                 dataType: 'json'
                 }).done(function (data) {
+                    //alert(data.resultatInscription);
+                    console.log(data.resultatInscription);
                     //Si linscription a echoue, on l'indique
                     if(data.resultatInscription==="KO") {
-                        $('#message-client').html('Inscription échouée');
+                        $('#message-client').html('La demande a echoue');
                     } else if(data.resultatInscription==="champsVide") {
                         //Si des champs sont restes vides
                         $('#message-client').html('Veuillez remplir tous les champs (seule Adresse 2 est facultative) !');
-                    }  else {
+                    } else {
                         //Si cela a ete un succes, on redirige le client
                         //vers la page d accueil
                         window.location = "pageAccueilClient.html";

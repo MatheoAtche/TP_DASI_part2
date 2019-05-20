@@ -24,7 +24,6 @@ public class InscrireClientSerialisation extends Serialisation {
         
         JsonObject jsonContainer = new JsonObject();
         String reponseInscription = (String)request.getAttribute("resultatInscription");
-        
         //En fonction des résultats de l'inscription, on renvoit un résultat différent
         if(reponseInscription.equals("OK")) {
             jsonContainer.addProperty("resultatInscription","OK");

@@ -28,13 +28,10 @@ public class InscrireClientAction extends Action {
         Service service = new Service();
         //On cree la date et l'adresse
         Adresse adresse = new Adresse(request.getParameter("ad1"),request.getParameter("ad2"),request.getParameter("ville"),"");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
-        try {
-            date = dateFormat.parse(request.getParameter("date"));
-        } catch (ParseException ex) {
-            Logger.getLogger(InscrireClientAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+
         //On vérifie que les champs ne sont pas nuls
         if(request.getParameter("nom").equals("") || request.getParameter("prenom").equals("") || request.getParameter("date").equals("") || 
             request.getParameter("tel").equals("") || request.getParameter("login").equals("") || 
@@ -44,12 +41,19 @@ public class InscrireClientAction extends Action {
             request.setAttribute("resultatInscription","champsVide");
             return true;
         }
+        
+        try {
+            date = dateFormat.parse(request.getParameter("date"));
+        } catch (ParseException ex) {
+            Logger.getLogger(InscrireClientAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //On cree le client
         Client client = new Client(request.getParameter("nom"),request.getParameter("prenom"),
                                     date,adresse,Long.parseLong(request.getParameter("tel")),
                                     request.getParameter("login"),request.getParameter("password"));
         InscriptionResult ajout = service.InscriptionClient(client);
 
+        request.setAttribute("resultatInscription","KO");
         //Si la création a reussi, on s'authentifie
         if(ajout==InscriptionResult.SUCCES) {
             client = service.AuthentificationClient(request.getParameter("login"),request.getParameter("password"));
@@ -63,13 +67,7 @@ public class InscrireClientAction extends Action {
                 request.setAttribute("resultatInscription","KO");
             }
             
-        } else {
-            //Si l'ajout n'a pas fonctionné
-            client = null;
-            request.getSession().setAttribute("client",client);
-            request.setAttribute("prenomClient",client.getPrenom());
-            request.setAttribute("resultatInscription","KO");
-        }
+        } 
 
         return true;
     }
