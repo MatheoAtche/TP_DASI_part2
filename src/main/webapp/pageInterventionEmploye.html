@@ -13,6 +13,13 @@ and open the template in the editor.
         <style type="text/css">
             html, body,section { height: 100%; margin: 0; padding: 0; }
             #map { height: 60%; width: 50%;float : right}
+            button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
+            header{background-color: blue; margin : 20px; padding : 20px;}
+            h1{color: white; text-align: center;}
+            p{text-align: center;}
+            input{border-radius: 10px;}
+            a{color: white; float: right; width:auto;}
+            #deconnexion{float:right;width:5%;background-color: blue;color:white;border:blue;}
         </style>
     </head>
     <body>
@@ -29,15 +36,11 @@ and open the template in the editor.
                 <ul id="liste_detail">
                 </ul>
             </article>
-            
-        </section>
-
-        <footer>
             Message au client<input type="text" id="Message" name="Message" />
             <input type="radio" id="choix_cloture1" name="choix" value="Succes" checked>Succès
             <input type="radio" id="choix_cloture2" name="choix" value="Echec">Echec
             <button id="Cloture_intervention">Clôturer l'intervention </button>
-        </footer>
+        </section>
         
         <script type="text/javascript">
             function Detail_Inter() {
