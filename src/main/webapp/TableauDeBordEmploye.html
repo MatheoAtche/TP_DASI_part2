@@ -16,10 +16,10 @@ and open the template in the editor.
             button{border-radius: 10px; color : white; background-color: green}.center{text-align: center;}
             header{background-color: blue; margin : 20px; padding : 20px;}
             h1{color: white; text-align: center;}
-            p{text-align: center;}
-            input{border-radius: 10px;}
-            a{color: white; float: right; width:auto;}
+            
+            header a{color: white; float: right; width:auto;}
             #deconnexion{float:right;width:5%;background-color: blue;color:white;border:blue;}
+            footer {text-align: center; background-color: blue; margin: auto; padding: 30px; color:white; }
         </style>
     </head>
     <body>
@@ -128,7 +128,9 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    $('#bandeau').html('<a href="pageInterventionEmploye.html"> /!\ Une intervention est en cours </a>');
+                    if (data.client!=null){
+                        $('#bandeau').html('<a href="pageInterventionEmploye.html"> /!\ Une intervention est en cours </a>');
+                    }
                 });
             }
 

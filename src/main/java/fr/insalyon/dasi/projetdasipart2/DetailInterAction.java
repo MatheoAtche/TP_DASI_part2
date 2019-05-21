@@ -26,6 +26,7 @@ public class DetailInterAction extends Action {
         request.setAttribute("type", i.typeToString());
         request.setAttribute("message", i.getDescription());
         request.setAttribute("heure", i.getDebut());
+        request.setAttribute("commentaire", i.getMessageFin());
         return true;
     }
 }

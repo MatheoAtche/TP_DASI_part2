@@ -20,7 +20,7 @@ public class GetInterventionAction extends Action {
     public boolean executer(HttpServletRequest request) {
         Service service = new Service();
         Employe employe = (Employe)request.getSession().getAttribute("employe");
-        if (!employe.isDisponible()){
+        if (employe.isDisponible()==false){
             Intervention i = service.getInterventionEnCours(employe);
             request.setAttribute("client", i.getClient().getNom() + " " + i.getClient().getPrenom());
             request.setAttribute("tel", i.getClient().getTelephone());

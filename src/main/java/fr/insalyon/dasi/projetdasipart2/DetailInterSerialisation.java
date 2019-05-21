@@ -26,6 +26,7 @@ public class DetailInterSerialisation extends Serialisation {
         jsonContainer.addProperty("type", (String) request.getAttribute("type"));
         jsonContainer.addProperty("message", (String) request.getAttribute("message"));
         jsonContainer.addProperty("heure", String.valueOf(request.getAttribute("heure")));
+        jsonContainer.addProperty("statut", (String) request.getAttribute("statut"));
         PrintWriter out = this.getWriterWithJsonHeader(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(jsonContainer,out);
